@@ -1,30 +1,27 @@
 import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
-import Social from "./Social";
-import externalUrls from "./externalUrls";
 import { ReactComponent as StakeIcon } from "../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../assets/icons/bond.svg";
-import { ReactComponent as DashboardIcon } from "../../assets/icons/dashboard.svg";
-import { ReactComponent as SquidIcon } from "../../assets/icons/squid.svg";
-import { trim, shorten } from "../../helpers";
-import { useAddress, useWeb3Context } from "src/hooks/web3Context";
-import useBonds from "../../hooks/Bonds";
+import { shorten } from "../../helpers";
+import { useAddress } from "src/hooks/web3Context";
 import { Paper, Link, Box, Typography, SvgIcon } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGavel } from "@fortawesome/free-solid-svg-icons";
+import snoop from "../../assets/snoop.png";
 import "./sidebar.scss";
 
 function NavContent() {
   const [isActive] = useState();
   const address = useAddress();
-  const { bonds } = useBonds();
   const checkPage = useCallback((match, location, page) => {
     const currentPath = location.pathname.replace("/", "");
     if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
       return true;
     }
-    if (currentPath.indexOf("stake") >= 0 && page === "stake") {
+    if (currentPath.indexOf("stake-v1") >= 0 && page === "stake-v1") {
+      return true;
+    }
+    if (currentPath.indexOf("stake-v1") === -1 && currentPath.indexOf("stake") >= 0 && page === "stake") {
       return true;
     }
     if ((currentPath.indexOf("bonds") >= 0 || currentPath.indexOf("choose_bond") >= 0) && page === "bonds") {
@@ -38,13 +35,8 @@ function NavContent() {
       <Box className="dapp-sidebar-inner" display="flex" justifyContent="space-between" flexDirection="column">
         <div className="dapp-menu-top">
           <Box className="branding-header">
-            <Link href="https://squid.xyz/" target="_blank">
-              <SvgIcon
-                color="primary"
-                component={SquidIcon}
-                viewBox="0 0 81 80"
-                style={{ minWdth: "81px", minHeight: "80px", width: "81px" }}
-              />
+            <Link href="" target="_blank">
+              <img src={snoop} style={{ minWdth: "81px", minHeight: "80px", width: "81px" }} />
             </Link>
 
             {address && (
@@ -76,7 +68,7 @@ function NavContent() {
               <Link
                 component={NavLink}
                 id="auction-nav"
-                to="/auction"
+                to="/"
                 isActive={() => false}
                 className={`button-dapp-menu ${isActive ? "active" : ""}`}
               >
@@ -98,6 +90,21 @@ function NavContent() {
                 <Typography variant="h6">
                   <SvgIcon color="primary" component={StakeIcon} style={{ fill: "none" }} viewBox="0 0 25 24" />
                   Stake
+                </Typography>
+              </Link>
+
+              <Link
+                component={NavLink}
+                id="stake-v1-nav"
+                to="/stake-v1"
+                isActive={(match, location) => {
+                  return checkPage(match, location, "stake-v1");
+                }}
+                className={`button-dapp-menu ${isActive ? "active" : ""}`}
+              >
+                <Typography variant="h6">
+                  <SvgIcon color="primary" component={StakeIcon} style={{ fill: "none" }} viewBox="0 0 25 24" />
+                  Stake (deprecated)
                 </Typography>
               </Link>
 

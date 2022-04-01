@@ -10,7 +10,7 @@
 html,
 body,
 #root {
-  font-family: "Poppins", sans-serif;
+  font-family: "depixel", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
@@ -29,7 +29,7 @@ body {
   flex-direction: column;
   z-index: 1;
   background-size: cover;
-  font-family: "Poppins", sans-serif;
+  font-family: "depixel", sans-serif;
   overflow: hidden;
   transition: all ease 0.33ms;
 }
@@ -121,5 +121,11 @@ a:hover svg {
 }
 .PrivateTabIndicator-colorPrimary-16,
 .PrivateTabIndicator-colorPrimary-15 {
-  background-color: #7f7fd5 !important;
+  background-color: #EB9A2D !important;
+}
+
+@font-face {
+  font-family: 'depixel';
+  src: local('depixel'), url("./fonts/depixelklein.otf") format('truetype');
+  font-weight: 400;
 }

@@ -5,7 +5,12 @@ export default function NotFound() {
   return (
     <div id="not-found" style={{ textAlign: "center", height: "100%" }}>
       <div className="not-found-header">
-        <img className="branding-header-icon" src={OlympusLogo} alt="SquidDAO" style={{ marginBottom: "20px" }} />
+        <img
+          className="branding-header-icon"
+          src={OlympusLogo}
+          alt="SnoopDAO"
+          style={{ marginBottom: "20px", width: "200px" }}
+        />
         <h1 style={{ marginBottom: "16px" }}>Oops!!</h1>
         <p>Wrong way, please try again.</p>
       </div>

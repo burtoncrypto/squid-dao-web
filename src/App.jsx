@@ -30,6 +30,7 @@ import { girth as gTheme } from "./themes/girth.js";
 
 import "./style.scss";
 import Landing from "./views/Landing/Landing";
+import StakeV1 from "./views/StakeV1/StakeV1";
 
 // 😬 Sorry for all the console logging
 const DEBUG = false;
@@ -209,12 +210,16 @@ function App() {
             {/*  <TreasuryDashboard />*/}
             {/*</Route>*/}
 
-            <Route exact path="/">
-              <Redirect to="/stake" />
-            </Route>
+            {/*<Route exact path="/">*/}
+            {/*  <Redirect to="/stake" />*/}
+            {/*</Route>*/}
 
             <Route path="/stake">
               <Stake />
+            </Route>
+
+            <Route path="/stake-v1">
+              <StakeV1 />
             </Route>
 
             <Route path="/bonds">

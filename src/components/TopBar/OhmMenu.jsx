@@ -8,8 +8,8 @@ import "./ohmmenu.scss";
 import { dai, frax, weth } from "src/helpers/AllBonds";
 import { useWeb3Context } from "../../hooks/web3Context";
 
-import SquidImg from "src/assets/tokens/token_SQUID.png";
-import SSquidImg from "src/assets/tokens/token_sSQUID.png";
+import SnoopImg from "src/assets/tokens/token_SNOOP.png";
+import SSnoopImg from "src/assets/tokens/token_sSNOOP.png";
 
 const addTokenToWallet = (tokenSymbol, tokenAddress) => async () => {
   if (window.ethereum) {
@@ -20,11 +20,11 @@ const addTokenToWallet = (tokenSymbol, tokenAddress) => async () => {
 
     // } ? OhmImg : SOhmImg;
     switch (tokenSymbol) {
-      case "SQUID":
-        tokenPath = SquidImg;
+      case "SNOOP":
+        tokenPath = SnoopImg;
         break;
       default:
-        tokenPath = SSquidImg;
+        tokenPath = SSnoopImg;
     }
     const imageURL = `${host}/${tokenPath}`;
 
@@ -56,6 +56,7 @@ function OhmMenu() {
 
   const SOHM_ADDRESS = addresses[networkID].SOHM_ADDRESS;
   const OHM_ADDRESS = addresses[networkID].OHM_ADDRESS;
+  const DOG_ADDRESS = addresses[networkID].DOG_ADDRESS;
   const PT_TOKEN_ADDRESS = addresses[networkID].PT_TOKEN_ADDRESS;
 
   const handleClick = target => {
@@ -80,10 +81,10 @@ function OhmMenu() {
         size="large"
         variant="contained"
         color="secondary"
-        title="SQUID"
+        title="SNOOP"
         aria-describedby={id}
       >
-        <Typography>SQUID</Typography>
+        <Typography>SNOOP</Typography>
         <SvgIcon component={ChevronDown} color="primary" style={{ fill: "none" }} />
       </Button>
 
@@ -94,7 +95,7 @@ function OhmMenu() {
               <Paper className="ohm-menu" elevation={1}>
                 <Box component="div" className="buy-tokens">
                   <Link
-                    href={`https://app.sushi.com/swap?inputCurrency=${wethAddress}&outputCurrency=${OHM_ADDRESS}`}
+                    href={`https://app.sushi.com/swap?inputCurrency=${DOG_ADDRESS}&outputCurrency=${OHM_ADDRESS}`}
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -146,19 +147,19 @@ function OhmMenu() {
                         variant="contained"
                         color="secondary"
                         style={{ maxHeight: "unset" }}
-                        onClick={addTokenToWallet("SQUID", OHM_ADDRESS)}
+                        onClick={addTokenToWallet("SNOOP", OHM_ADDRESS)}
                       >
-                        <img src={SquidImg} style={{ height: "35px", width: "35px" }} />
-                        <Typography variant="body1">SQUID</Typography>
+                        <img src={SnoopImg} style={{ height: "35px", width: "35px" }} />
+                        <Typography variant="body1">SNOOP</Typography>
                       </Button>
                       <Button
                         variant="contained"
                         color="secondary"
                         style={{ maxHeight: "unset" }}
-                        onClick={addTokenToWallet("sSQUID", SOHM_ADDRESS)}
+                        onClick={addTokenToWallet("sSNOOP", SOHM_ADDRESS)}
                       >
-                        <img src={SSquidImg} style={{ height: "35px", width: "35px" }} />
-                        <Typography variant="body1">sSQUID</Typography>
+                        <img src={SSnoopImg} style={{ height: "35px", width: "35px" }} />
+                        <Typography variant="body1">sSNOOP</Typography>
                       </Button>
                       {/*<Button variant="contained" color="secondary" onClick={addTokenToWallet("33T", PT_TOKEN_ADDRESS)}>*/}
                       {/*  <SvgIcon*/}

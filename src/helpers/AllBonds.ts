@@ -9,6 +9,7 @@ import { ReactComponent as OhmLusdImg } from "src/assets/tokens/OHM-LUSD.svg";
 import { ReactComponent as wETHImg } from "src/assets/tokens/wETH.svg";
 import { ReactComponent as LusdImg } from "src/assets/tokens/LUSD.svg";
 import { ReactComponent as SquidUsdtImg } from "src/assets/tokens/squid-usdt.svg";
+import { ReactComponent as DogImg } from "src/assets/tokens/dog.svg";
 
 import { abi as FraxOhmBondContract } from "src/abi/bonds/OhmFraxContract.json";
 import { abi as BondOhmDaiContract } from "src/abi/bonds/OhmDaiContract.json";
@@ -123,6 +124,45 @@ export const eth = new CustomBond({
   },
 });
 
+export const dog = new StableBond({
+  name: "dog",
+  displayName: "DOG",
+  bondToken: "DOG",
+  bondIconSvg: DogImg,
+  bondContractABI: BondOhmDaiContract,
+  networkAddrs: {
+    [NetworkID.Mainnet]: {
+      bondAddress: "0x7dd8c6F62667ED01C176130622416a141cd4732A",
+      reserveAddress: "0xBAac2B4491727D78D2b78815144570b9f2Fe8899",
+    },
+    [NetworkID.Testnet]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+  },
+});
+
+export const snoop_dog = new LPBond({
+  name: "snoop_dog_lp",
+  displayName: "SNOOP-DOG LP",
+  bondToken: "DOG",
+  bondIconSvg: SquidUsdtImg,
+  bondContractABI: BondOhmDaiContract,
+  reserveContract: ReserveOhmDaiContract,
+  networkAddrs: {
+    [NetworkID.Mainnet]: {
+      bondAddress: "0xcd544D3A9E1fDcc46B4B3831dddaEeF8d334b208",
+      reserveAddress: "0x3a61dd70A05F6CfFDe20e22593932123DA180052",
+    },
+    [NetworkID.Testnet]: {
+      bondAddress: "",
+      reserveAddress: "",
+    },
+  },
+  lpUrl:
+    "https://app.sushi.com/add/0x8715cA97c5B464C1957ceFBD18015b5567e52060/0xBAac2B4491727D78D2b78815144570b9f2Fe8899",
+});
+
 export const squid_weth = new LPBond({
   name: "squid_eth_lp",
   displayName: "SQUID-ETH LP",
@@ -142,27 +182,6 @@ export const squid_weth = new LPBond({
   },
   lpUrl:
     "https://app.sushi.com/add/0x21ad647b8F4Fe333212e735bfC1F36B4941E6Ad2/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-});
-
-export const ohm_frax = new LPBond({
-  name: "ohm_frax_lp",
-  displayName: "OHM-FRAX LP",
-  bondToken: "FRAX",
-  bondIconSvg: OhmFraxImg,
-  bondContractABI: FraxOhmBondContract,
-  reserveContract: ReserveOhmFraxContract,
-  networkAddrs: {
-    [NetworkID.Mainnet]: {
-      bondAddress: "0xc20CffF07076858a7e642E396180EC390E5A02f7",
-      reserveAddress: "0x2dce0dda1c2f98e0f171de8333c3c6fe1bbf4877",
-    },
-    [NetworkID.Testnet]: {
-      bondAddress: "0x7BB53Ef5088AEF2Bb073D9C01DCa3a1D484FD1d2",
-      reserveAddress: "0x11BE404d7853BDE29A3e73237c952EcDCbBA031E",
-    },
-  },
-  lpUrl:
-    "https://app.uniswap.org/#/add/v2/0x853d955acef822db058eb8505911ed77f175b99e/0x383518188c0c6d7730d91b2c03a03c837814a899",
 });
 
 export const ohm_lusd = new LPBond({
@@ -192,7 +211,7 @@ export const ohm_lusd = new LPBond({
 // Is it an LP Bond? use `new LPBond`
 // Add new bonds to this array!!
 //export const allBonds = [dai, frax, eth, ohm_dai, ohm_frax, lusd, ohm_lusd];
-export const allBonds = [squid_weth, weth];
+export const allBonds = [snoop_dog, dog];
 export const allBondsMap = allBonds.reduce((prevVal, bond) => {
   return { ...prevVal, [bond.name]: bond };
 }, {});

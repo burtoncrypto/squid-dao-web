@@ -1,4 +1,4 @@
-import { formatEth, trim } from "../../helpers";
+import { formatDog, trim } from "../../helpers";
 import BondLogo from "../../components/BondLogo";
 import { Box, Button, Link, Paper, Typography, TableRow, TableCell, SvgIcon, Slide } from "@material-ui/core";
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
@@ -34,7 +34,7 @@ export function BondDataCard({ bond }) {
         <div className="data-row">
           <Typography>Price</Typography>
           <Typography className="bond-price">
-            <>{isBondLoading ? <Skeleton width="50px" /> : formatEth(bond.bondPrice, 2)}</>
+            <>{isBondLoading ? <Skeleton width="50px" /> : formatDog(bond.bondPrice, 2)}</>
           </Typography>
         </div>
 
@@ -45,7 +45,7 @@ export function BondDataCard({ bond }) {
 
         <div className="data-row">
           <Typography>Purchased</Typography>
-          <Typography>{isBondLoading ? <Skeleton width="80px" /> : formatEth(bond.purchased)}</Typography>
+          <Typography>{isBondLoading ? <Skeleton width="80px" /> : formatDog(bond.purchased)}</Typography>
         </div>
         <Link component={NavLink} to={`/bonds/${bond.name}`}>
           <Button variant="outlined" color="primary" fullWidth>
@@ -80,11 +80,11 @@ export function BondTableData({ bond }) {
       </TableCell>
       <TableCell align="left">
         <Typography>
-          <>{isBondLoading ? <Skeleton width="50px" /> : formatEth(bond.bondPrice, 2)}</>
+          <>{isBondLoading ? <Skeleton width="50px" /> : formatDog(bond.bondPrice, 2)}</>
         </Typography>
       </TableCell>
       <TableCell align="left">{isBondLoading ? <Skeleton /> : `${trim(bond.bondDiscount * 100, 2)}%`}</TableCell>
-      <TableCell align="right">{isBondLoading ? <Skeleton /> : formatEth(bond.purchased)}</TableCell>
+      <TableCell align="right">{isBondLoading ? <Skeleton /> : formatDog(bond.purchased)}</TableCell>
       <TableCell>
         <Link component={NavLink} to={`/bonds/${bond.name}`}>
           <Button variant="outlined" color="primary">

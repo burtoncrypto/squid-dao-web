@@ -9,16 +9,15 @@ import { SvgIcon } from "@material-ui/core";
 import { ReactComponent as OhmImg } from "../assets/tokens/token_OHM.svg";
 import { ReactComponent as SOhmImg } from "../assets/tokens/token_sOHM.svg";
 
-import { squid_weth } from "./AllBonds";
+import { snoop_dog } from "./AllBonds";
 import { JsonRpcSigner, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { IBaseAsyncThunk } from "src/slices/interfaces";
 
 // NOTE (appleseed): this looks like an outdated method... we now have this data in the graph (used elsewhere in the app)
 export async function getMarketPrice({ networkID, provider }: IBaseAsyncThunk) {
-  const ohm_dai_address = squid_weth.getAddressForReserve(networkID);
+  const ohm_dai_address = snoop_dog.getAddressForReserve(networkID);
   const pairContract = new ethers.Contract(ohm_dai_address, PairContract, provider);
   const reserves = await pairContract.getReserves();
-  // TODO: Might need to change this accroding to SQUID address.
   const marketPrice = reserves[1] / reserves[0];
 
   // commit('set', { marketPrice: marketPrice / Math.pow(10, 9) });
@@ -45,8 +44,8 @@ export function formatCurrency(c: number, precision = 0) {
   }).format(c);
 }
 
-export function formatEth(c: number, precision = 0) {
-  return "Ξ " + commify(new BN(c).toFixed(precision));
+export function formatDog(c: number, precision = 0) {
+  return commify(new BN(c).toFixed(precision)) + " DOG";
 }
 
 export function commify(n: string | number) {
@@ -73,8 +72,8 @@ export function trim(number: any = 0, precision = 0) {
 }
 
 export function getRebaseBlock(currentBlock: number) {
-  const c = currentBlock - 1948;
-  return c + EPOCH_INTERVAL - (c % EPOCH_INTERVAL) + 1948;
+  const c = currentBlock - 1000;
+  return c + EPOCH_INTERVAL - (c % EPOCH_INTERVAL) + 1000;
 }
 
 export function secondsUntilBlock(startBlock: number, endBlock: number) {

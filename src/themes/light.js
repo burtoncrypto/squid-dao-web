@@ -21,8 +21,8 @@ const lightTheme = {
   activeLinkColor: "#222222",
   activeLinkSvgColor: "invert(64%) sepia(11%) saturate(934%) hue-rotate(157deg) brightness(90%) contrast(86%)",
   // primaryButtonBG: "#759AAE",
-  primaryButtonBG: "#7F7FD5",
-  primaryButtonHoverBG: "#8181fd",
+  primaryButtonBG: "#EB9A2D",
+  primaryButtonHoverBG: "rgba(236,155,49,0.92)",
   // these need fixing
   primaryButtonHoverColor: "#ffffff",
   secondaryButtonHoverBG: "rgba(54, 56, 64, 1)",
@@ -61,7 +61,7 @@ export const light = responsiveFontSizes(
         graphStrokeColor: lightTheme.graphStrokeColor,
       },
       typography: {
-        fontFamily: "Poppins, sans-serif",
+        fontFamily: "depixel, sans-serif",
       },
       props: {
         MuiSvgIcon: {

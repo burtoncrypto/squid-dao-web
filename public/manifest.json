@@ -1,8 +1,8 @@
 {
-  "short_name": "SquidDAO",
+  "short_name": "SnoopDAO",
   "start_url": ".",
   "homepage": "./",
-  "name": "SquidDAO",
+  "name": "SnoopDAO",
   "launch_path": "/public/index.html",
   "icons": [
     {

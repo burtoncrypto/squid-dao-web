@@ -6,7 +6,7 @@ import commonSettings from "../../themes/global.js";
 // then set the values in darkTheme using the global color variables
 
 const darkTheme = {
-  color: "#FFFFFF",
+  color: "#000000",
   gold: "#F8CC82",
   gray: "#A3A3A3",
   textHighlightColor: "#F4D092",
@@ -68,7 +68,7 @@ export const dark = responsiveFontSizes(
         graphStrokeColor: darkTheme.graphStrokeColor,
       },
       typography: {
-        // fontFamily: "Square",
+        fontFamily: "Poppins",
       },
       props: {
         MuiSvgIcon: {

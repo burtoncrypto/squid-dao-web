@@ -3,7 +3,7 @@ import { Paper, Grid, Typography, Box, Zoom, Container, useMediaQuery } from "@m
 import { Skeleton } from "@material-ui/lab";
 import { useSelector } from "react-redux";
 import Chart from "../../components/Chart/Chart.jsx";
-import { trim, formatCurrency, formatEth } from "../../helpers";
+import { trim, formatCurrency, formatDog } from "../../helpers";
 import {
   treasuryDataQuery,
   rebasesDataQuery,
@@ -135,12 +135,12 @@ function TreasuryDashboard() {
                 Current Index
                 <InfoTooltip
                   message={
-                    "The current index tracks the amount of sSQUID accumulated since the beginning of staking. Basically, how much sOHM one would have if they staked and held a single OHM from day 1."
+                    "The current index tracks the amount of sSNOOP accumulated since the beginning of staking. Basically, how much sOHM one would have if they staked and held a single OHM from day 1."
                   }
                 />
               </Typography>
               <Typography variant="h5">
-                {currentIndex ? trim(currentIndex, 2) + " sSQUID" : <Skeleton type="text" />}
+                {currentIndex ? trim(currentIndex, 2) + " sSNOOP" : <Skeleton type="text" />}
               </Typography>{" "}
             </Paper>
           </Grid>
@@ -156,7 +156,7 @@ function TreasuryDashboard() {
                   dataKey={["totalValueLocked"]}
                   stopColor={[["#7558C6", "rgba(255, 110, 214, 0.2)"]]}
                   headerText="Total Value Deposited"
-                  headerSubText={`${data && formatEth(data[0].totalValueLocked)}`}
+                  headerSubText={`${data && formatDog(data[0].totalValueLocked)}`}
                   bulletpointColors={bulletpoints.tvl}
                   itemNames={tooltipItems.tvl}
                   itemType={itemType.dollar}
@@ -220,7 +220,7 @@ function TreasuryDashboard() {
                   data={data}
                   dataKey={["treasuryOhmDaiPOL"]}
                   stopColor={[["#7558C6", "rgba(255, 110, 214, 0.2)"]]}
-                  headerText="Protocol Owned Liquidity SQUID-WETH"
+                  headerText="Protocol Owned Liquidity SNOOP-DOG"
                   headerSubText={`${data && trim(data[0].treasuryOhmDaiPOL, 2)}% `}
                   dataFormat="percent"
                   bulletpointColors={bulletpoints.pol}
@@ -258,7 +258,7 @@ function TreasuryDashboard() {
                   data={staked}
                   dataKey={["staked"]}
                   stopColor={[["#7558C6", "rgba(255, 110, 214, 0.2)"]]}
-                  headerText="SQUID Staked"
+                  headerText="SNOOP Staked"
                   dataFormat="percent"
                   headerSubText={`${staked && trim(staked[0].staked, 2)}% `}
                   isStaked={true}
