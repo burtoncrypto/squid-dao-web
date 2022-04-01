@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { BondDataCard, BondTableData } from "./BondRow";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { formatEth } from "../../helpers";
+import { formatDog } from "../../helpers";
 import useBonds from "../../hooks/Bonds";
 import "./choosebond.scss";
 import { Skeleton } from "@material-ui/lab";
@@ -44,7 +44,7 @@ function ChooseBond() {
   });
 
   const treasuryBalance = useSelector(state => {
-    if (state.bonding.loading == false) {
+    if (state.bonding.loading === false) {
       let tokenBalances = 0;
       for (const bond in allBondsMap) {
         if (state.bonding[bond]) {
@@ -72,7 +72,7 @@ function ChooseBond() {
                   Treasury Balance
                 </Typography>
                 <Typography variant="h4">
-                  {isAppLoading ? <Skeleton width="180px" /> : formatEth(treasuryBalance)}
+                  {isAppLoading ? <Skeleton width="180px" /> : formatDog(treasuryBalance)}
                 </Typography>
               </Box>
             </Paper>
@@ -82,10 +82,10 @@ function ChooseBond() {
             <Paper className="ohm-card">
               <Box textAlign={`${isVerySmallScreen ? "center" : "center"}`}>
                 <Typography variant="subtitle1" color="textSecondary">
-                  SQUID Price
+                  SNOOP Price
                 </Typography>
                 <Typography variant="h4">
-                  {isAppLoading ? <Skeleton width="100px" /> : formatEth(marketPrice, 2)}
+                  {isAppLoading ? <Skeleton width="100px" /> : formatDog(marketPrice, 2)}
                 </Typography>
               </Box>
             </Paper>

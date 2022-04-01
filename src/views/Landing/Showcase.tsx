@@ -2,73 +2,75 @@ import { Typography } from "@material-ui/core";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import styled from "styled-components";
-import showcase0 from "../../assets/images/showcase_0.png";
-import showcase1 from "../../assets/images/showcase_1.png";
-import showcase2 from "../../assets/images/showcase_2.png";
-import showcase3 from "../../assets/images/showcase_3.png";
-import showcase4 from "../../assets/images/showcase_4.png";
-import showcase5 from "../../assets/images/showcase_5.png";
-import showcase6 from "../../assets/images/showcase_6.png";
-import showcase7 from "../../assets/images/showcase_7.png";
+import background1 from "../../assets/background1.svg";
+import logo from "../../assets/logo.svg";
 
 const Showcase: React.FC = () => {
   return (
     <>
-      <Row className="g-4 align-items-center">
-        <Col className="d-flex justify-content-center">
-          <Typography variant="h1" component="span" style={{ fontWeight: "bold" }} className="p-4 d-none d-sm-block">
-            Get
-            <br />
-            Kraken
-            <br />
-            Before
-            <br />
-            They're
-            <br />
-            Gone
-          </Typography>
-          <Typography variant="h3" component="span" style={{ fontWeight: "bold" }} className="d-sm-none">
-            Get
-            <br />
-            Kraken
-            <br />
-            Before
-            <br />
-            They're
-            <br />
-            Gone
-          </Typography>
+      <Row className="g-4 mt-4 align-items-center">
+        <Col xs={12} md={6} className="d-flex flex-column position-relative" style={{ zIndex: 1 }}>
+          <StyleTypography variant="h1" style={{ fontWeight: "bold" }}>
+            Dogg money is the people's money
+          </StyleTypography>
         </Col>
-        <Col>
-          <Img src={showcase0} className="p-4 d-none d-sm-block" />
-          <Img src={showcase0} className="p-2 d-sm-none" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Img src={showcase1} />
-        </Col>
-        <Col>
-          <Img src={showcase2} />
-        </Col>
-        <Col>
-          <Img src={showcase3} />
-        </Col>
-        <Col>
-          <Img src={showcase4} />
-        </Col>
-        <Col>
-          <Img src={showcase5} />
-        </Col>
+        <StyledCol xs={12} md={6} className="d-flex justify-content-center align-items-center">
+          <img src={background1} className="position-absolute" />
+          <ImgWrapper className="position-relative">
+            <Img src={logo} />
+          </ImgWrapper>
+        </StyledCol>
       </Row>
     </>
   );
 };
 
+const ImgWrapper = styled.div`
+  display: flex;
+  width: 320px;
+  height: 320px;
+  border-radius: 160px;
+  background: white;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 992px) {
+    width: 400px;
+    height: 400px;
+    border-radius: 200px;
+  }
+`;
+
 const Img = styled.img`
-  width: 100%;
-  max-width: 100%;
-  border-radius: 8px;
+  width: 220px;
+  height: 220px;
+
+  @media (min-width: 992px) {
+    width: 264px;
+    height: 264px;
+  }
+`;
+
+const StyledCol = styled(Col)`
+  height: 600px;
+`;
+
+const StyleTypography = styled(Typography)`
+  font-weight: bold;
+  font-size: 1.5rem !important;
+
+  @media (min-width: 768px) {
+    font-size: 4.5rem !important;
+  }
+`;
+
+const StyleTypography2 = styled(Typography)`
+  font-weight: bold;
+  font-size: 1rem !important;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem !important;
+  }
 `;
 
 export default Showcase;

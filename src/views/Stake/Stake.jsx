@@ -18,7 +18,7 @@ import {
 import NewReleases from "@material-ui/icons/NewReleases";
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
 import TabPanel from "../../components/TabPanel";
-import { formatEth, getOhmTokenImage, getTokenImage, trim } from "../../helpers";
+import { formatDog, getOhmTokenImage, getTokenImage, trim } from "../../helpers";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import "./stake.scss";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -97,11 +97,11 @@ function Stake() {
     // 1st catch if quantity > balance
     let gweiValue = ethers.utils.parseUnits(quantity, "gwei");
     if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ohmBalance, "gwei"))) {
-      return dispatch(error("You cannot stake more than your SQUID balance."));
+      return dispatch(error("You cannot stake more than your SNOOP balance."));
     }
 
     if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sohmBalance, "gwei"))) {
-      return dispatch(error("You cannot unstake more than your sSQUID balance."));
+      return dispatch(error("You cannot unstake more than your sSNOOP balance."));
     }
 
     await dispatch(changeStake({ address, action, value: quantity.toString(), provider, networkID: chainID }));
@@ -175,7 +175,8 @@ function Stake() {
                     Total Value Deposited
                   </Typography>
                   <Typography variant="h4">
-                    {stakingTVL ? formatEth(stakingTVL) : <Skeleton width="150px" />}
+                    {/*{stakingTVL ? formatDog(stakingTVL) : <Skeleton width="150px" />}*/}
+                    Coming Soon
                   </Typography>
                 </div>
               </Paper>
@@ -190,7 +191,7 @@ function Stake() {
               <div className="wallet-menu" id="wallet-menu">
                 {modalButton}
               </div>
-              <Typography variant="h6">Connect your wallet to stake SQUID</Typography>
+              <Typography variant="h6">Connect your wallet to stake SNOOP</Typography>
             </div>
           ) : (
             <>
@@ -216,15 +217,15 @@ function Stake() {
                         <Typography variant="body1" className="stake-note" color="textSecondary">
                           {view === 0 ? (
                             <>
-                              First time staking <b>SQUID</b>?
+                              First time staking <b>SNOOP</b>?
                               <br />
-                              Please approve Squid Dao to use your <b>SQUID</b> for staking.
+                              Please approve Snoop Dao to use your <b>SNOOP</b> for staking.
                             </>
                           ) : (
                             <>
-                              First time unstaking <b>sSQUID</b>?
+                              First time unstaking <b>sSNOOP</b>?
                               <br />
-                              Please approve Squid Dao to use your <b>sSQUID</b> for unstaking.
+                              Please approve Snoop Dao to use your <b>sSNOOP</b> for unstaking.
                             </>
                           )}
                         </Typography>
@@ -267,7 +268,7 @@ function Stake() {
                           onChangeStake("stake");
                         }}
                       >
-                        {txnButtonText(pendingTransactions, "staking", "Stake SQUID")}
+                        {txnButtonText(pendingTransactions, "staking", "Stake SNOOP")}
                       </Button>
                     ) : (
                       <Button
@@ -296,7 +297,7 @@ function Stake() {
                           onChangeStake("unstake");
                         }}
                       >
-                        {txnButtonText(pendingTransactions, "unstaking", "Unstake SQUID")}
+                        {txnButtonText(pendingTransactions, "unstaking", "Unstake SNOOP")}
                       </Button>
                     ) : (
                       <Button
@@ -321,7 +322,7 @@ function Stake() {
                     Your Balance
                   </Typography>
                   <Typography variant="body1">
-                    {isAppLoading ? <Skeleton width="80px" /> : <>{trim(ohmBalance, 4)} SQUID</>}
+                    {isAppLoading ? <Skeleton width="80px" /> : <>{trim(ohmBalance, 4)} SNOOP</>}
                   </Typography>
                 </div>
 
@@ -330,7 +331,7 @@ function Stake() {
                     Your Staked Balance
                   </Typography>
                   <Typography variant="body1">
-                    {isAppLoading ? <Skeleton width="80px" /> : <>{trimmedBalance} sSQUID</>}
+                    {isAppLoading ? <Skeleton width="80px" /> : <>{trimmedBalance} sSNOOP</>}
                   </Typography>
                 </div>
 
@@ -339,7 +340,7 @@ function Stake() {
                     Next Reward Amount
                   </Typography>
                   <Typography variant="body1">
-                    {isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} sSQUID</>}
+                    {isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} sSNOOP</>}
                   </Typography>
                 </div>
 

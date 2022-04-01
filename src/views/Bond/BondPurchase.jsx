@@ -49,7 +49,7 @@ function BondPurchase({ bond, slippage, recipientAddress }) {
       dispatch(error("Please enter a valid value!"));
     } else if (bond.interestDue > 0 || bond.pendingPayout > 0) {
       const shouldProceed = window.confirm(
-        "Only one capsule can be held in one wallet at a time. If attempting to bond an additional on squid.xyz, then your vesting period will be extended. We recommend claiming rewards first but if you choose not to it will simply be extended.",
+        "Only one capsule can be held in one wallet at a time. If attempting to bond an additional on snoop.xyz, then your vesting period will be extended. We recommend claiming rewards first but if you choose not to it will simply be extended.",
       );
       if (shouldProceed) {
         await dispatch(
@@ -135,7 +135,7 @@ function BondPurchase({ bond, slippage, recipientAddress }) {
             {!hasAllowance() ? (
               <div className="help-text">
                 <Typography variant="body1" align="left" color="textSecondary">
-                  First time bonding <b>{bond.displayName}</b>? <br /> Please approve Squid Dao to use your{" "}
+                  First time bonding <b>{bond.displayName}</b>? <br /> Please approve Snoop Dao to use your{" "}
                   <b>{bond.displayName}</b> for bonding.
                 </Typography>
               </div>
@@ -196,7 +196,7 @@ function BondPurchase({ bond, slippage, recipientAddress }) {
                 <Skeleton width="100px" />
               ) : (
                 <>
-                  {trim(bond.balance, 9)} {displayUnits}
+                  {trim(bond.balance, 4)} {displayUnits}
                 </>
               )}
             </Typography>
@@ -205,14 +205,14 @@ function BondPurchase({ bond, slippage, recipientAddress }) {
           <div className={`data-row`}>
             <Typography>You Will Get</Typography>
             <Typography id="bond-value-id" className="price-data">
-              {isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 9) || "0"} SQUID`}
+              {isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4) || "0"} SNOOP`}
             </Typography>
           </div>
 
           <div className={`data-row`}>
             <Typography>Max You Can Buy</Typography>
             <Typography id="bond-value-id" className="price-data">
-              {isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 9) || "0"} SQUID`}
+              {isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4) || "0"} SNOOP`}
             </Typography>
           </div>
 

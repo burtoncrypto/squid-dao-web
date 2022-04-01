@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { SvgIcon, Typography } from "@material-ui/core";
 import React, { useEffect, useMemo, useState } from "react";
 import { Button, Col, Container, FormControl, InputGroup, Row, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
@@ -7,12 +7,13 @@ import { useWeb3Context } from "../../hooks";
 import { useAuctionContext, BidData } from "../../hooks/auctionContext";
 import useAuctionData from "../../hooks/useAuctionData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
-import { shorten, formatEther } from "../../helpers";
+import { faArrowLeft, faArrowRight, faExternalLinkAlt, faGavel } from "@fortawesome/free-solid-svg-icons";
+import { shorten, formatEther, commify } from "../../helpers";
 import { useReverseENSLookUp } from "../../helpers/ensLookup";
 import useAuctionImage from "../../helpers/useAuctionImages";
 import Bid from "./Bid";
 import { useModalContext } from "./Modal";
+import background from "../../assets/background2.svg";
 
 interface AuctionProps {
   auctionId: number;
@@ -21,8 +22,8 @@ interface AuctionProps {
 const Auction: React.FC<AuctionProps> = ({ auctionId }) => {
   const history = useHistory();
 
-  const onNextAuction = () => history.push(`/squid/${auctionId + 1}`);
-  const onPrevAuction = () => history.push(`/squid/${auctionId - 1}`);
+  const onNextAuction = () => history.push(`/snoop/${auctionId + 1}`);
+  const onPrevAuction = () => history.push(`/snoop/${auctionId - 1}`);
 
   const { lastAuctionId } = useAuctionContext();
   const auctionData = useAuctionData(auctionId);
@@ -49,7 +50,10 @@ const Auction: React.FC<AuctionProps> = ({ auctionId }) => {
   return (
     <Row className="gy-4">
       <Col lg={6} className="d-flex flex-column align-items-center">
-        <Art src={useAuctionImage(auctionId)} />
+        <div className="d-flex justify-content-center align-items-center">
+          <img src={background} className="position-absolute" style={{ width: "100%", maxWidth: "660px" }} />
+          <Art src={useAuctionImage(auctionId)} />
+        </div>
         <ArtNav
           isFirst={auctionId === 0}
           isLast={auctionId === lastAuctionId}
@@ -60,8 +64,8 @@ const Auction: React.FC<AuctionProps> = ({ auctionId }) => {
       <Col lg={6} className="d-flex flex-column">
         <Row className="mb-3">
           <Col>
-            <Typography variant="h2" component="div">
-              Squid {auctionId}
+            <Typography variant="h2" component="div" style={{ letterSpacing: "0" }}>
+              Snoop {auctionId}
             </Typography>
           </Col>
         </Row>
@@ -106,8 +110,8 @@ const CurrentBid: React.FC<{ bid: number }> = ({ bid }) => {
       <Typography variant="h6" component="div">
         Current Bid
       </Typography>
-      <Typography variant="h2" component="div">
-        {bid.toFixed(2)} ETH
+      <Typography variant="h2" component="div" style={{ letterSpacing: "0" }}>
+        {commify(bid.toFixed(2))} DOG
       </Typography>
     </div>
   );
@@ -179,10 +183,6 @@ const Timer: React.FC<{ t: number; unit: string }> = ({ t, unit }) => {
   );
 };
 
-const BidHistory: React.FC = () => {
-  return <ul></ul>;
-};
-
 const BidRecord: React.FC<{ bid: BidData }> = ({ bid }) => {
   const { chainID } = useWeb3Context();
 
@@ -198,7 +198,7 @@ const BidRecord: React.FC<{ bid: BidData }> = ({ bid }) => {
         {ens ? ens : shorten(bid.bidder)}
       </Typography>
       <Typography variant="h6" component="span" style={{ flexGrow: 1, textAlign: "end" }}>
-        Ξ {formatEther(bid.bidAmount).toFixed(4)}
+        {commify(formatEther(bid.bidAmount).toFixed(2))} DOG
       </Typography>
       <FontAwesomeIcon icon={faExternalLinkAlt} className="ms-3" onClick={() => openExplorer(bid.txHash)} />
     </BidRecordWrapper>
@@ -216,12 +216,12 @@ const ArtNav: React.FC<ArtNavProps> = props => {
   const { isFirst, isLast, onPrevAuctionClick, onNextAuctionClick } = props;
 
   return (
-    <div>
+    <div className="position-relative">
       <NavButton onClick={onPrevAuctionClick} disabled={isFirst}>
-        ←
+        <FontAwesomeIcon icon={faArrowLeft} size="xs" />
       </NavButton>
       <NavButton onClick={onNextAuctionClick} disabled={isLast}>
-        →
+        <FontAwesomeIcon icon={faArrowRight} size="xs" />
       </NavButton>
     </div>
   );
@@ -230,8 +230,9 @@ const ArtNav: React.FC<ArtNavProps> = props => {
 const NavButton = styled.button`
   background-color: transparent;
   border: none;
-  color: white;
+  color: black;
   font-size: xx-large;
+  margin: 8px 12px;
 
   &:disabled {
     opacity: 0.5;
@@ -240,6 +241,8 @@ const NavButton = styled.button`
 
 const Art = styled.img`
   width: 100%;
+  position: relative;
+  z-index: 1;
   max-width: 440px;
   //height: 440px;
 `;
@@ -252,7 +255,9 @@ const BidInfo = styled.div`
 const BidRecordWrapper = styled.div`
   height: 44px;
   display: flex;
-  background: rgba(32, 10, 43, 0.6);
+  background: white;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
   margin-top: 8px;
   border-radius: 10px;
   align-items: center;

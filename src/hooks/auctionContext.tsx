@@ -55,7 +55,7 @@ export const AuctionContextProvider: React.FC = ({ children }) => {
 
     const currentAuction = await auctionContract.auction();
     const paused = await auctionContract.paused();
-    const currentAuctionId = currentAuction.squidDAONFTId.toNumber();
+    const currentAuctionId = currentAuction.snoopDAONFTId.toNumber();
 
     setPaused(paused);
 
@@ -73,7 +73,7 @@ export const AuctionContextProvider: React.FC = ({ children }) => {
     // Fetch the previous 24 hours of bids
     const previousBids = await auctionContract.queryFilter(bidFilter, 0 - BLOCKS_PER_DAY);
     for (let event of previousBids) {
-      if (event.args && event.args.squidDAONFTId.eq(currentAuction.squidDAONFTId)) {
+      if (event.args && event.args.snoopDAONFTId.eq(currentAuction.snoopDAONFTId)) {
         const timestamp = (await event.getBlock()).timestamp;
         auction.bids.push({
           txHash: event.transactionHash,
@@ -88,6 +88,9 @@ export const AuctionContextProvider: React.FC = ({ children }) => {
     setLastAuctionId(currentAuctionId);
     setLastAuction(auction);
 
+    if (currentAuctionId === 0) {
+      return;
+    }
     // Fetch past auctions.
     const data = await apolloExt(pastAuctionsQuery(currentAuctionId), SQUID_NFT_GRAPH_URLS[chainID]);
     if (data) {
@@ -135,7 +138,7 @@ export const AuctionContextProvider: React.FC = ({ children }) => {
     }
 
     // Listen a new bid event.
-    auctionContract.on(bidFilter, async (squidDAONFTId, sender, value, extended, event) => {
+    auctionContract.on(bidFilter, async (snoopDAONFTId, sender, value, extended, event) => {
       const timestamp = (await event.getBlock()).timestamp;
       auction.bidder = sender;
       auction.amount = value;
@@ -153,17 +156,17 @@ export const AuctionContextProvider: React.FC = ({ children }) => {
     });
 
     // Listen a new auction event.
-    auctionContract.on(createdFilter, async (squidDAONFTId, startTime, endTime, event) => {
+    auctionContract.on(createdFilter, async (snoopDAONFTId, startTime, endTime, event) => {
       fetchAuctions();
     });
 
     // Listen an auction settled event.
-    auctionContract.on(settledFilter, async (squidDAONFTId, winner, amount, event) => {
+    auctionContract.on(settledFilter, async (snoopDAONFTId, winner, amount, event) => {
       fetchAuctions();
     });
 
     // Listen an auction extended event.
-    auctionContract.on(extendedFilter, async (squidDAONFTId, endTime, event) => {
+    auctionContract.on(extendedFilter, async (snoopDAONFTId, endTime, event) => {
       auction.endTime = new Date(Number(endTime) * 1000);
       setLastAuction({
         ...auction,
